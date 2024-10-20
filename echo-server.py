@@ -7,15 +7,15 @@ import ipaddress
 
 # Server sets up a listening socket
 
-Host = '0.0.0.0'
+serverIP = input("Enter the server ip address: ")
 
-Port = 8080
+serverPort = int(input("Enter port: "))
 
 ## creates listening socket (IPv4, tcp socket stream)
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as tcpSock: 
-    tcpSock.bind((Host, Port)) # binds the created socket to the host and port you want to listen to 
-    print(f"binding: {Host}:{Port}")
-    tcpSock.listen(1) # listen to a request for the server from this socket
+    tcpSock.bind((serverIP, serverPort)) # binds the created socket to the host and port you want to listen to 
+    print(f"binding: {serverIP}:{serverPort}")
+    tcpSock.listen() # listen to a request for the server from this socket
     print("Server is listening for connections...")
 
     incomingSocket, clientAddr = tcpSock.accept() 
