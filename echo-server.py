@@ -14,15 +14,17 @@ Port = int(input("Enter port: "))
 ## creates listening socket (IPv4, tcp socket stream)
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as tcpSock: 
     tcpSock.bind((Host, Port)) # binds the created socket to the host and port you want to listen to 
-    tcpSock.listen() # listen to a request from the server from this socket
-    packetData, clientAddr = tcpSock.accept() 
-    with packetData: 
+    print(f"binding: {Host}, {Port}")
+    tcpSock.listen() # listen to a request for the server from this socket
+    incomingSocket, clientAddr = tcpSock.accept() 
+    with incomingSocket: 
         print(f"Connected by {clientAddr}")
         while True: 
-            data = packetData.recv(1024)
+            data = incomingSocket.recv(1024) # Recieve data from client 
             if not data: 
+                print("Connection Lost")
                 break
-            packetData.sendall(data.upper())
+            incomingSocket.sendall(data.upper())
 	 
 	
         
